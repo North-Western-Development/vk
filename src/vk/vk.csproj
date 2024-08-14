@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net5;netstandard1.4</TargetFrameworks>
     <OutputType>Library</OutputType>
     <AssemblyName>vk</AssemblyName>
-    <AssemblyVersion>1.0.25</AssemblyVersion>
+    <AssemblyVersion>1.0.26</AssemblyVersion>
     <RootNamespace>Vulkan</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ProjectGuid>{D8573039-9FE1-4554-A659-4E77CFBA83C1}</ProjectGuid>
@@ -13,7 +12,7 @@
 
     <!-- Package Info -->
     <PackageId>Vk</PackageId>
-    <PackageVersion>$(AssemblyVersion)</PackageVersion>
+    <PackageVersion>1.0.26</PackageVersion>
     <Description>Low-level bindings for the Vulkan graphics and compute API.</Description>
     <PackageTags>Vulkan Graphics 3D GPU Games Khronos</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -21,21 +20,22 @@
     <Authors>Eric Mellino</Authors>
     <ProjectUrl>https://github.com/mellinoe/vk</ProjectUrl>
     <RepositoryUrl>https://github.com/mellinoe/vk</RepositoryUrl>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
   </ItemGroup>
   <Target Name="AutoGenerateBindings" BeforeTargets="CoreCompile">
     <PropertyGroup>
-      <VkGeneratorExecutable>$(BinDir)/$(Configuration)/vk.generator/netcoreapp2.0/vk.generator.dll</VkGeneratorExecutable>
+      <VkGeneratorExecutable>$(BinDir)/$(Configuration)/vk.generator/net8.0/vk.generator.dll</VkGeneratorExecutable>
     </PropertyGroup>
     <Message Text="Generating bindings." />
     <Exec Command="dotnet $(VkGeneratorExecutable) --out $(MSBuildThisFileDirectory)Generated" />
   </Target>
   <PropertyGroup>
-    <VkRewriteExecutable>$(BinDir)/$(Configuration)/vk.rewrite/netcoreapp2.0/vk.rewrite.dll</VkRewriteExecutable>
+    <VkRewriteExecutable>$(BinDir)/$(Configuration)/vk.rewrite/net8.0/vk.rewrite.dll</VkRewriteExecutable>
   </PropertyGroup>
   <Target Name="RewriteCalliStubs" AfterTargets="PostBuildEvent" Condition="'$(DisableCalli)' != 'true'">
     <Message Text="Rewriting calli stubs." />
-    <Exec Command="dotnet $(VkRewriteExecutable) --vkdll $(TargetPath)" />
+    <Exec Command="echo $(TargetPath); dotnet $(VkRewriteExecutable) --vkdll $(TargetPath)" />
   </Target>
 </Project>

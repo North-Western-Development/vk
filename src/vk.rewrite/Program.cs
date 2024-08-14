@@ -18,21 +18,17 @@ namespace Vk.Rewrite
 
         public static int Main(string[] args)
         {
-            string vkDllPath = null;
+            string vkDllPath = "/home/nwbear/RiderProjects/vk/bin/Release/vk/net8.0/vk.dll";
             string outputPath = null;
             bool copiedToTemp = false;
-            var s = System.CommandLine.ArgumentSyntax.Parse(args, syntax =>
-            {
-                syntax.DefineOption("vkdll", ref vkDllPath, "The location of vk.dll to rewrite.");
-                syntax.DefineOption("out", ref outputPath, "The output location of the rewritten DLL. If not specified, the DLL is rewritten in-place.");
-            });
 
             if (vkDllPath == null)
             {
                 Console.WriteLine("Error: a path for --vkdll is required.");
-                Console.WriteLine(s.GetHelpText());
+                //Console.WriteLine(s.GetHelpText());
                 return -1;
             }
+
             if (outputPath == null)
             {
                 outputPath = vkDllPath;

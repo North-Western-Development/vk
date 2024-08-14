@@ -9,12 +9,7 @@ namespace Vk.Generator
     {
         public static int Main(string[] args)
         {
-            string outputPath = AppContext.BaseDirectory;
-
-            ArgumentSyntax.Parse(args, s =>
-            {
-                s.DefineOption("o|out", ref outputPath, "The folder into which code is generated. Defaults to the application directory.");
-            });
+            string outputPath = "/home/nwbear/src/vk/Generated/";
 
             Configuration.CodeOutputPath = outputPath;
 
